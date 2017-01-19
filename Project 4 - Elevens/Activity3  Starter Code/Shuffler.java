@@ -62,6 +62,16 @@ public class Shuffler {
 		{
 			halfDeckTwo[i] = values[i + VALUE_COUNT / 2];
 		}
+		
+		for( int i = 0; i < VALUE_COUNT / 2; i++ ) 
+		{
+			values[ 2 * i ] = halfDeckTwo[i];
+			values[ 2 * i + 1 ] = halfDeckOne[i];
+		}
+		if( VALUE_COUNT % 2 != 0 ) 
+		{
+			values[ VALUE_COUNT - 1 ] = halfDeckTwo[ VALUE_COUNT - VALUE_COUNT / 2 ];
+		}
 	}
 
 	/**
@@ -76,6 +86,11 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void selectionShuffle(int[] values) {
-		/* *** TO BE IMPLEMENTED IN ACTIVITY 3 *** */
+		for( int i = VALUE_COUNT - 1; i >= 0; i-- ) 
+		{
+			int rand = (int)(Math.random() * i);
+			int shuff = values[rand];
+			values[rand] = values[i];
+			values[i] = shuff;
 	}
 }
