@@ -50,27 +50,39 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void perfectShuffle(int[] values) {
-		int[] halfDeckOne = new int[VALUE_COUNT / 2];
-		int[] halfDeckTwo = new int[VALUE_COUNT - VALUE_COUNT / 2];
+		int[] shuffled = new int[values.length]; //placeholder array
+		int k = 0; //placeholder variables
+		int i = 0;
+		int halfDeck; //initialozes half the deck
 		
-		for(int i = 0; i < VALUE_COUNT - 2; i++)
+		if(values.length % 2 == 0) //if the deck is even, split at the halfway point
 		{
-			halfDeckOne[i] = values[i];
+			halfDeck = values.length / 2;
+		}
+		else //if the deck is odd, split at halfway point
+		{
+			halfDeck = (values.length + 1) / 2;
 		}
 		
-		for(int i = 0; i < VALUE_COUNT - VALUECOUNT / 2; i++)
+		while(i < halfDeck) //while in the first half of the deck
 		{
-			halfDeckTwo[i] = values[i + VALUE_COUNT / 2];
+			shuffled[k] = values[i]; //assigns i in values to k in shuffled
+			k = k + 2; //increments location by two, leaving an empty space
+			i++;
 		}
 		
-		for( int i = 0; i < VALUE_COUNT / 2; i++ ) 
+		k = 1; //sets placeholder to 1, to fill odd positions
+		i = halfDeck; //sets i placeholder to the halfway point of the deck
+		while(i < values.length) //while in the second half
 		{
-			values[ 2 * i ] = halfDeckTwo[i];
-			values[ 2 * i + 1 ] = halfDeckOne[i];
+			shuffled[k] = values[i]; //assigns i in values to k in shuffled
+			k = k + 2;//increments location by two, filling the empty spaces
+			i++; //increments counter
 		}
-		if( VALUE_COUNT % 2 != 0 ) 
+		
+		for( int j = 0; j < values.length; j++) //copies all elements from shuffled to original array
 		{
-			values[ VALUE_COUNT - 1 ] = halfDeckTwo[ VALUE_COUNT - VALUE_COUNT / 2 ];
+			values[j] = shuffled[j];
 		}
 	}
 
@@ -86,11 +98,12 @@ public class Shuffler {
 	 * @param values is an array of integers simulating cards to be shuffled.
 	 */
 	public static void selectionShuffle(int[] values) {
-		for( int i = VALUE_COUNT - 1; i >= 0; i-- ) 
+		for(int i = (values.length - 1);  i >= 0; i--) //array is traversed dtarting from last position
 		{
-			int rand = (int)(Math.random() * i);
-			int shuff = values[rand];
-			values[rand] = values[i];
-			values[i] = shuff;
+			int rand = (int)(Math.random() * (values.length -1)); //random var in array
+			int shuff = values[i]; //stores last element in a placeholder
+			values[i] = values[rand]; //replaces the element with a random location
+			values[rand] = shuff; //replaces the random location with the last element stored in shuff
+		}
 	}
 }
